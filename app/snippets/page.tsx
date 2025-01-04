@@ -15,7 +15,6 @@ export default async function SnippetsPage() {
   const handleDelete = async (formData: FormData) => {
     "use server";
     const id = formData.get("id") as string;
-    console.log(id);
     deleteSnippet(parseInt(id));
     redirect("/snippets");
   };
@@ -57,9 +56,7 @@ export default async function SnippetsPage() {
             <div className="mt-4 flex items-center justify-end">
               <Form action={handleDelete}>
                 <input type="hidden" name="id" value={snippet.id} />
-                <button
-                  className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-                >
+                <button className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
                   Delete
                 </button>
               </Form>

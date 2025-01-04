@@ -4,7 +4,7 @@ import SnippetsDetail from "@/components/SnippetDetail";
 export default async function SnippetDetail({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const id = (await params).id;
   const snippet = await getSnippetById(parseInt(id));
