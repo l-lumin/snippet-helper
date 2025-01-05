@@ -3,6 +3,8 @@ import Form from "next/form";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+export const dynamic = 'force-dynamic'
+
 export default async function SnippetsPage() {
   const snippets = await getSnippets();
 
