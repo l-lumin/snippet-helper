@@ -11,7 +11,7 @@ interface SVGProps {
   textColor?: string;
 }
 
-export const SVG = forwardRef<SVGSVGElement, SVGProps>(
+const SVG = forwardRef<SVGSVGElement, SVGProps>(
   (
     {
       width,
@@ -87,6 +87,8 @@ export const SVG = forwardRef<SVGSVGElement, SVGProps>(
     );
   }
 );
+
+SVG.displayName = "SVG";
 
 const saveSVGasPNG = (
   svgElementRef: React.RefObject<SVGSVGElement | null>,
@@ -170,17 +172,6 @@ export default function Page() {
           value={textColor}
           onChange={handleTextColorChange}
           title="Text Color"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="mr-4">Icon Size</label>
-        <input
-          type="number"
-          name="size"
-          value={size}
-          onChange={handleSizeChange}
-          className="w-full"
-          title="Size"
         />
       </div>
       <div className="mb-4">
