@@ -1,5 +1,5 @@
-import { Snippet } from "@/models/snippet";
-import prisma from "@/lib/prisma";
+import { Snippet } from "@/app/models/snippet";
+import prisma from "@/app/lib/prisma";
 
 export const getSnippets = async (): Promise<Snippet[]> => {
   return await prisma.snippet.findMany();

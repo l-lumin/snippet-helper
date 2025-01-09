@@ -1,5 +1,5 @@
 "use client";
-import { roboto, sourGummy } from "@/ui/fonts";
+import { roboto, sourGummy } from "@/app/ui/fonts";
 import { forwardRef, useRef, useState } from "react";
 
 interface SVGProps {
@@ -18,7 +18,7 @@ const SVG = forwardRef<SVGSVGElement, SVGProps>(
       height,
       bgColor = "#000000",
       text,
-    //   fontSize = Math.min(width, height) / 8,
+      //   fontSize = Math.min(width, height) / 8,
       fontSize = 60,
       textColor = "#ffffff",
     }: SVGProps,
@@ -43,12 +43,7 @@ const SVG = forwardRef<SVGSVGElement, SVGProps>(
           r={Math.min(width, height) / 2}
           fill={bgColor}
         /> */}
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill={bgColor}></rect>
+        <rect x={0} y={0} width={width} height={height} fill={bgColor}></rect>
         {lines.length === 1 ? (
           <text
             x="50%"
@@ -153,9 +148,9 @@ export default function Page() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <div className="mb-4">
-        <label className="mr-4">Background Color</label>
+    <div>
+      <div>
+        <label>Background Color</label>
         <input
           type="color"
           name="bgColor"
@@ -164,8 +159,8 @@ export default function Page() {
           title="Background Color"
         />
       </div>
-      <div className="mb-4">
-        <label className="mr-4">Text Color</label>
+      <div>
+        <label>Text Color</label>
         <input
           type="color"
           name="textColor"
@@ -174,25 +169,25 @@ export default function Page() {
           title="Text Color"
         />
       </div>
-      <div className="mb-4">
-        <label className="mr-4">Icon Size</label>
+      <div>
+        <label>Icon Size</label>
         <input
           type="number"
           name="size"
           value={size}
           onChange={handleSizeChange}
-          className="w-full"
           title="Size"
+          className="input"
         />
       </div>
-      <div className="mb-4">
-        <label className="mr-4">Text</label>
+      <div>
+        <label>Text</label>
         <textarea
           name="text"
           value={text}
           onChange={handleTextChange}
           rows={2}
-          className="w-full max-w-full p-4 mb-4 border border-gray-300 rounded-lg text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          className="textarea"
         />
       </div>
       <div className={`${roboto.className} ${sourGummy.className}`}>
@@ -205,10 +200,7 @@ export default function Page() {
           textColor={textColor}
         />
       </div>
-      <button
-        onClick={() => saveSVGasPNG(svgRef)}
-        className="w-full px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
+      <button onClick={() => saveSVGasPNG(svgRef)} className="btn">
         Export
       </button>
     </div>

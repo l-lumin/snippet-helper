@@ -1,5 +1,5 @@
-import { getSnippetById } from "@/lib/snippetStore";
-import SnippetsDetail from "@/components/SnippetDetail";
+import { getSnippetById } from "@/app/lib/snippet-store";
+import SnippetsDetail from "@/app/ui/snippets/snippet-detail";
 
 export default async function SnippetDetail({
   params,
