@@ -1,5 +1,6 @@
 import { getSnippetById } from "@/app/lib/snippet-store";
 import SnippetsDetail from "@/app/ui/snippets/snippet-detail";
+import { notFound } from "next/navigation";
 
 export default async function SnippetDetail({
   params,
@@ -10,7 +11,8 @@ export default async function SnippetDetail({
   const snippet = await getSnippetById(parseInt(id));
 
   if (!snippet) {
-    return <div>Snippet not found</div>;
+    notFound();
   }
+
   return <SnippetsDetail {...snippet} />;
 }
