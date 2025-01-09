@@ -1,9 +1,7 @@
-import {
-  createSnippet,
-  deleteSnippet
-} from "@/app/lib/snippet-store";
+import { createSnippet, deleteSnippet } from "@/app/lib/snippet-store";
 import { SnippetsSkeleton } from "@/app/ui/skeletons";
 import SnippetsCard from "@/app/ui/snippets/snippets-card";
+import { revalidatePath } from "next/cache";
 import Form from "next/form";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -12,6 +10,7 @@ export default async function SnippetsPage() {
   const handleSubmit = async (formData: FormData) => {
     "use server";
     createSnippet(formData.get("content") as string);
+    revalidatePath("/snippets");
     redirect("/snippets");
   };
 
@@ -19,7 +18,7 @@ export default async function SnippetsPage() {
     "use server";
     const id = formData.get("id") as string;
     deleteSnippet(parseInt(id));
-    redirect("/snippets");
+    revalidatePath("/snippets");
   };
 
   return (
@@ -30,6 +29,7 @@ export default async function SnippetsPage() {
           name="content"
           placeholder="Enter your snippet"
           className="textarea"
+          required
         />
         <button type="submit" className="btn">
           Create
