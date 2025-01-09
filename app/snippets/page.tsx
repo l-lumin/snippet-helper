@@ -1,13 +1,14 @@
-import { createSnippet, deleteSnippet, getSnippets } from "@/app/lib/snippet-store";
+import {
+  createSnippet,
+  deleteSnippet
+} from "@/app/lib/snippet-store";
+import { SnippetsSkeleton } from "@/app/ui/skeletons";
+import SnippetsCard from "@/app/ui/snippets/snippets-card";
 import Form from "next/form";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-
-export const dynamic = "force-dynamic";
+import { Suspense } from "react";
 
 export default async function SnippetsPage() {
-  const snippets = await getSnippets();
-
   const handleSubmit = async (formData: FormData) => {
     "use server";
     createSnippet(formData.get("content") as string);
@@ -36,28 +37,9 @@ export default async function SnippetsPage() {
       </Form>
 
       {/* Snippets List */}
-      <div>
-        {snippets.map((snippet) => (
-          <div key={snippet.id}>
-            {/* Snippet Content */}
-            <Link href={`/snippets/${snippet.id}`}>
-              <article className="prose">
-                <pre>{snippet.content}</pre>
-              </article>
-            </Link>
-
-            {/* Delete Button */}
-            <div>
-              <Form action={handleDelete}>
-                <input type="hidden" name="id" value={snippet.id} />
-                <button type="submit" className="btn">
-                  Delete
-                </button>
-              </Form>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Suspense fallback={<SnippetsSkeleton />}>
+        <SnippetsCard onDelete={handleDelete} />
+      </Suspense>
     </div>
   );
 }
