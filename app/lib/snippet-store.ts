@@ -2,36 +2,61 @@ import { Snippet } from "@/app/models/snippet";
 import prisma from "@/app/lib/prisma";
 
 export const getSnippets = async (): Promise<Snippet[]> => {
-  return await prisma.snippet.findMany();
+  try {
+    return await prisma.snippet.findMany();
+  } catch (e) {
+    console.error("Database error", e);
+    throw new Error("Unable to fetch snippets");
+  }
 };
 
 export const getSnippetById = async (id: number): Promise<Snippet | null> => {
-  return await prisma.snippet.findUnique({
-    where: { id },
-  });
+  try {
+    return await prisma.snippet.findUnique({
+      where: { id },
+    });
+  } catch (e) {
+    console.error("Database error", e);
+    throw new Error("Unable to fetch snippet");
+  }
 };
 
 export const createSnippet = async (content: string): Promise<Snippet> => {
-  return await prisma.snippet.create({
-    data: {
-      content: content,
-    },
-  });
+  try {
+    return await prisma.snippet.create({
+      data: {
+        content: content,
+      },
+    });
+  } catch (e) {
+    console.error("Database error", e);
+    throw new Error("Unable to create snippet");
+  }
 };
 
 export const updateSnippet = (
   id: number,
   snippet: Snippet
 ): Promise<Snippet | null> => {
-  return prisma.snippet.update({
-    where: { id },
-    data: snippet,
-  });
+  try {
+    return prisma.snippet.update({
+      where: { id },
+      data: snippet,
+    });
+  } catch (e) {
+    console.error("Database error", e);
+    throw new Error("Unable to update snippet");
+  }
 };
 
 export const deleteSnippet = async (id: number): Promise<boolean> => {
-  const snippet = await prisma.snippet.delete({
-    where: { id },
-  });
-  return !!snippet;
+  try {
+    const snippet = await prisma.snippet.delete({
+      where: { id },
+    });
+    return !!snippet;
+  } catch (e) {
+    console.error("Database error", e);
+    throw new Error("Unable to delete snippet");
+  }
 };
