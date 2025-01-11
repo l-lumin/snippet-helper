@@ -1,4 +1,4 @@
-# Snippet Helper
+# Tool box
 
 ```sh
 pnpm prisma generate
